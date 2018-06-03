@@ -69,6 +69,7 @@ RUN chmod 0644 * \
 
 RUN apk --update add --no-cache \
     bash \
+    nano \
     supervisor \
     pdns \
     pdns-doc \
@@ -114,9 +115,9 @@ RUN find /usr/local \
 
 # Replace default configurations
 ################################
-RUN rm /etc/pdns/pdns.conf \
-    && rm /etc/pdns/recursor.conf \
-    && rm /etc/supervisord.conf \
+RUN mv /etc/pdns/pdns.conf /etc/pdns/pdns.conf.old \
+    && mv /etc/pdns/recursor.conf /etc/pdns/recursor.conf.old \
+    && mv /etc/supervisord.conf /etc/supervisord.conf.old \
     && mv /root/pdns.conf /etc/pdns \
     && mv /root/recursor.conf /etc/pdns \
     && mv /root/config.py /usr/share/webapps/powerdns-admin \
